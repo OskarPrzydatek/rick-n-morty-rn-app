@@ -1,21 +1,26 @@
-import {View, Text, Button} from 'react-native';
+import {View, FlatList} from 'react-native';
 import React from 'react';
 import {styles} from './CharacterList.styled';
-import {useNavigation} from '@react-navigation/native';
-import { MainStackNavigationProp } from '@stacks/Main/Main.routes';
+import useCharacterList from './useCharacterList.service';
 
 const CharacterListScreen = () => {
-  const {navigate} = useNavigation<MainStackNavigationProp>();
+  const {
+    flattenCharactersResults,
+    ListHeaderComponent,
+    keyExtractor,
+    renderItem,
+    onEndReached,
+  } = useCharacterList();
+
   return (
     <View style={styles.container}>
-      <Text>Implement CharactersListScreen</Text>
-      <Button
-        title="Navigate to Details screen"
-        onPress={(): void => {
-          navigate('CharacterDetailsStack', {
-            screen: 'CharacterDetailsScreen',
-          });
-        }}
+      <FlatList
+        data={flattenCharactersResults}
+        ListHeaderComponent={ListHeaderComponent}
+        keyExtractor={keyExtractor}
+        renderItem={renderItem}
+        onEndReached={onEndReached}
+        contentContainerStyle={styles.contentContainer}
       />
     </View>
   );
