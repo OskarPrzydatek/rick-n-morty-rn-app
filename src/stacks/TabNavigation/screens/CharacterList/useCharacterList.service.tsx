@@ -1,14 +1,14 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Character, CharactersResponse} from '@api/models';
 import {getAllCharacters} from '@api/services';
-import {CharacterCard, ListHeader} from '@components/ui';
+import {CharacterCard, NoCharactersFoundView} from '@components/ui';
 import {BASE_URL, Endpoinst} from '@constants/api';
 import {useNavigation} from '@react-navigation/native';
 import {MainStackNavigationProp} from '@stacks/Main/Main.routes';
 import {InfiniteData, useInfiniteQuery} from '@tanstack/react-query';
 import {ActivityIndicator, TouchableOpacity} from 'react-native';
 import {colors} from '@constants/styles';
-import {useDebouncedValue} from '@hooks/index';
+import useDebouncedValue from '@hooks/useDebounceValue';
 
 const useCharacterList = () => {
   const {navigate} = useNavigation<MainStackNavigationProp>();
@@ -52,21 +52,13 @@ const useCharacterList = () => {
       params: {url},
     });
 
-  const ListHeaderComponent = useMemo(
-    () => (
-      <ListHeader
-        searchValue={searchInputValue}
-        placeholder="Search the characters"
-        onChangeText={onChangeText}
-        onPressCleanSearchValue={onPressCleanSearchValue}
-      />
-    ),
-    [searchInputValue],
-  );
-
   const ListFooterComponent = () => {
     if (isFetchingNextPage) {
       return <ActivityIndicator color={colors.darkGreen} />;
+    }
+
+    if (!flattenCharactersResults) {
+      return <NoCharactersFoundView />;
     }
 
     return null;
@@ -105,7 +97,9 @@ const useCharacterList = () => {
   return {
     flattenCharactersResults,
     isLoading,
-    ListHeaderComponent,
+    searchInputValue,
+    onChangeText,
+    onPressCleanSearchValue,
     ListFooterComponent,
     keyExtractor,
     renderItem,
