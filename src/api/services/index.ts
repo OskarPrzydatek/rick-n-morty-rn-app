@@ -5,3 +5,9 @@ export const getAllCharacters = async (pageParam: string) => {
 
   return response.data || {};
 };
+
+export const getSingleCharacter = async (url: string) => {
+  const response = await axios.get(url);
+
+  return response.data || {};
+};

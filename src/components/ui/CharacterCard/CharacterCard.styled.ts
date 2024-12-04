@@ -18,9 +18,6 @@ export const styles = StyleSheet.create({
         shadowOpacity: 1,
         shadowRadius: 0,
       },
-      android: {
-        elevation: 8,
-      },
     }),
   },
   characterAttributes: {

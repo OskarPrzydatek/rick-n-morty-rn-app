@@ -34,9 +34,10 @@ const useCharacterList = () => {
     }
   };
 
-  const onPressNavigateToCharacterDetails = () =>
+  const onPressNavigateToCharacterDetails = (url: string) =>
     navigate('CharacterDetailsStack', {
       screen: 'CharacterDetailsScreen',
+      params: {url},
     });
 
   const ListHeaderComponent = () => <ListHeader />;
@@ -44,7 +45,7 @@ const useCharacterList = () => {
 
   const renderItem = ({item}: {item: Character}) => {
     const handlePressNavigateToCharacterDetails = () =>
-      onPressNavigateToCharacterDetails();
+      onPressNavigateToCharacterDetails(item.url);
 
     return (
       <TouchableOpacity

@@ -13,7 +13,7 @@ export const CharacterDetailsStack = () => {
       }}>
       <Stack.Screen
         name={CharacterDetailsStackRoutes.CharacterDetailsScreen}
-        children={CharacterDetailsScreen}
+        component={CharacterDetailsScreen}
       />
     </Stack.Navigator>
   );
