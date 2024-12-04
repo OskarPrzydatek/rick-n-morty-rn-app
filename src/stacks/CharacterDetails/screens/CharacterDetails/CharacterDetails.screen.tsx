@@ -1,25 +1,14 @@
 import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {styles} from './CharacterDetails.styled';
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
-import {CharacterDetailsStackParamList} from '@stacks/CharacterDetails/CharacterDetails.routes';
-import {MainStackNavigationProp} from '@stacks/Main/Main.routes';
 import BackArrowIcon from '@assets/svg/back-arrow.svg';
 import {colors} from '@constants/styles';
-import {useQuery} from '@tanstack/react-query';
-import {getSingleCharacter} from '@api/services';
 import {CharacterFullCard, LoadingView} from '@components/ui';
+import useCharacterDetails from './useCharacterDetails.service';
 
 const CharacterDetailsScreen = () => {
-  const {goBack} = useNavigation<MainStackNavigationProp>();
-  const {params} = useRoute<RouteProp<CharacterDetailsStackParamList>>();
-
-  const {data, isLoading} = useQuery({
-    queryKey: ['character_details', params.url],
-    queryFn: () => getSingleCharacter(params.url),
-  });
-
-  const onPressGoBackToCharactersList = () => goBack();
+  const {data, isLoading, onPressGoBackToCharactersList} =
+    useCharacterDetails();
 
   return (
     <View style={styles.container}>
