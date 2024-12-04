@@ -1,10 +1,4 @@
-import {
-  ActivityIndicator,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {styles} from './CharacterDetails.styled';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
@@ -14,7 +8,7 @@ import BackArrowIcon from '@assets/svg/back-arrow.svg';
 import {colors} from '@constants/styles';
 import {useQuery} from '@tanstack/react-query';
 import {getSingleCharacter} from '@api/services';
-import {CharacterFullCard} from '@components/ui';
+import {CharacterFullCard, LoadingView} from '@components/ui';
 
 const CharacterDetailsScreen = () => {
   const {goBack} = useNavigation<MainStackNavigationProp>();
@@ -39,7 +33,7 @@ const CharacterDetailsScreen = () => {
       </TouchableOpacity>
 
       {isLoading ? (
-        <ActivityIndicator />
+        <LoadingView />
       ) : (
         <ScrollView
           style={styles.scrollContainer}

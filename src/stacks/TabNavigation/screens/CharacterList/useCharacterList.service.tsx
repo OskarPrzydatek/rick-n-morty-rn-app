@@ -6,25 +6,27 @@ import {BASE_URL, Endpoinst} from '@constants/api';
 import {useNavigation} from '@react-navigation/native';
 import {MainStackNavigationProp} from '@stacks/Main/Main.routes';
 import {InfiniteData, useInfiniteQuery} from '@tanstack/react-query';
-import {TouchableOpacity} from 'react-native';
+import {ActivityIndicator, TouchableOpacity} from 'react-native';
+import {colors} from '@constants/styles';
 
 const useCharacterList = () => {
   const {navigate} = useNavigation<MainStackNavigationProp>();
 
   const initialPageUrl = `${BASE_URL}/${Endpoinst.ALL_CHARACTERS}`;
 
-  const {data, hasNextPage, fetchNextPage} = useInfiniteQuery<
-    CharactersResponse,
-    Error,
-    InfiniteData<CharactersResponse>,
-    string[],
-    string
-  >({
-    queryKey: ['all_characters'],
-    queryFn: ({pageParam}) => getAllCharacters(pageParam),
-    initialPageParam: initialPageUrl,
-    getNextPageParam: lastPage => lastPage.info.next,
-  });
+  const {data, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage} =
+    useInfiniteQuery<
+      CharactersResponse,
+      Error,
+      InfiniteData<CharactersResponse>,
+      string[],
+      string
+    >({
+      queryKey: ['all_characters'],
+      queryFn: ({pageParam}) => getAllCharacters(pageParam),
+      initialPageParam: initialPageUrl,
+      getNextPageParam: lastPage => lastPage.info.next,
+    });
 
   const flattenCharactersResults = data?.pages.flatMap(page => page.results);
 
@@ -41,6 +43,15 @@ const useCharacterList = () => {
     });
 
   const ListHeaderComponent = () => <ListHeader />;
+
+  const ListFooterComponent = () => {
+    if (isFetchingNextPage) {
+      return <ActivityIndicator />;
+    }
+
+    return <ActivityIndicator color={colors.darkGreen} />;
+  };
+
   const keyExtractor = (item: Character) => `${item.id}-${item.name}`;
 
   const renderItem = ({item}: {item: Character}) => {
@@ -63,7 +74,9 @@ const useCharacterList = () => {
 
   return {
     flattenCharactersResults,
+    isLoading,
     ListHeaderComponent,
+    ListFooterComponent,
     keyExtractor,
     renderItem,
     onEndReached,
