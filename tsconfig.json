@@ -8,7 +8,8 @@
       "@components/*": ["src/components/*"],
       "@constants/*": ["src/constants/*"],
       "@hooks/*": ["src/hooks/*"],
-      "@stacks/*": ["src/stacks/*"]
+      "@stacks/*": ["src/stacks/*"],
+      "@store/*": ["src/store/*"]
     }
   }
 }

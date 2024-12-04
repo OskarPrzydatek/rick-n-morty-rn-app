@@ -5,4 +5,5 @@ export const colors = {
   darkGreen: '#162C1B',
   greyshGreen: '#DAE4DC',
   white: '#FFFFFF',
+  accent: '#F89F34',
 };

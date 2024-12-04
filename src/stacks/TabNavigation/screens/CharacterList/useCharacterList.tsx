@@ -1,14 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {Character, CharactersResponse} from '@api/models';
+import {CharactersResponse} from '@api/models';
 import {getAllCharacters} from '@api/services';
-import {CharacterCard, NoCharactersFoundView} from '@components/ui';
+import {NoCharactersFoundView} from '@components/ui';
 import {BASE_URL, Endpoinst} from '@constants/api';
 import {useNavigation} from '@react-navigation/native';
 import {MainStackNavigationProp} from '@stacks/Main/Main.routes';
 import {InfiniteData, useInfiniteQuery} from '@tanstack/react-query';
-import {ActivityIndicator, TouchableOpacity} from 'react-native';
+import {ActivityIndicator} from 'react-native';
 import {colors} from '@constants/styles';
 import useDebouncedValue from '@hooks/useDebounceValue';
+import useFavoritesStore from '@store/favorites';
 
 const useCharacterList = () => {
   const {navigate} = useNavigation<MainStackNavigationProp>();
@@ -34,6 +35,12 @@ const useCharacterList = () => {
       initialPageParam: pageUrl,
       getNextPageParam: lastPage => lastPage.info.next,
     });
+
+  const {
+    isCharacterInFavorites,
+    addCharacterToFavorites,
+    removeCharacterFormFavorites,
+  } = useFavoritesStore();
 
   const flattenCharactersResults = data?.pages.flatMap(page => page.results);
 
@@ -64,26 +71,6 @@ const useCharacterList = () => {
     return null;
   };
 
-  const keyExtractor = (item: Character) => `${item.id}-${item.name}`;
-
-  const renderItem = ({item}: {item: Character}) => {
-    const handlePressNavigateToCharacterDetails = () =>
-      onPressNavigateToCharacterDetails(item.url);
-
-    return (
-      <TouchableOpacity
-        activeOpacity={0.7}
-        onPress={handlePressNavigateToCharacterDetails}>
-        <CharacterCard
-          name={item.name}
-          status={item.status}
-          species={item.species}
-          image={item.image}
-        />
-      </TouchableOpacity>
-    );
-  };
-
   useEffect(() => {
     if (debouncedSearchValue.length > 0) {
       setPageUrl(searchWithFiltersPageUrl);
@@ -100,10 +87,12 @@ const useCharacterList = () => {
     searchInputValue,
     onChangeText,
     onPressCleanSearchValue,
+    onPressNavigateToCharacterDetails,
     ListFooterComponent,
-    keyExtractor,
-    renderItem,
     onEndReached,
+    isCharacterInFavorites,
+    addCharacterToFavorites,
+    removeCharacterFormFavorites,
   };
 };
 

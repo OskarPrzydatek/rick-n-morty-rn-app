@@ -4,11 +4,16 @@ import {styles} from './CharacterDetails.styled';
 import BackArrowIcon from '@assets/svg/back-arrow.svg';
 import {colors} from '@constants/styles';
 import {CharacterFullCard, LoadingView} from '@components/ui';
-import useCharacterDetails from './useCharacterDetails.service';
+import useCharacterDetails from './useCharacterDetails';
 
 const CharacterDetailsScreen = () => {
-  const {data, isLoading, onPressGoBackToCharactersList} =
-    useCharacterDetails();
+  const {
+    data,
+    isLoading,
+    handleIsCharacterInFavorites,
+    onPressFavoritesButton,
+    onPressGoBackToCharactersList,
+  } = useCharacterDetails();
 
   return (
     <View style={styles.container}>
@@ -34,6 +39,8 @@ const CharacterDetailsScreen = () => {
             originName={data?.origin.name}
             species={data?.species}
             gender={data?.gender}
+            isCharacterInFavorites={handleIsCharacterInFavorites}
+            onPressFavoritesButton={onPressFavoritesButton}
           />
         </ScrollView>
       )}

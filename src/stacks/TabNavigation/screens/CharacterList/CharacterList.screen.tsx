@@ -1,8 +1,6 @@
-import {View, FlatList} from 'react-native';
 import React from 'react';
-import {styles} from './CharacterList.styled';
-import useCharacterList from './useCharacterList.service';
-import {CharacterListHeader, LoadingView} from '@components/ui';
+import useCharacterList from './useCharacterList';
+import {CharacterList} from '@components/ui';
 
 const CharacterListScreen = () => {
   const {
@@ -11,35 +9,28 @@ const CharacterListScreen = () => {
     searchInputValue,
     onChangeText,
     onPressCleanSearchValue,
+    onPressNavigateToCharacterDetails,
     ListFooterComponent,
-    keyExtractor,
-    renderItem,
     onEndReached,
+    isCharacterInFavorites,
+    addCharacterToFavorites,
+    removeCharacterFormFavorites,
   } = useCharacterList();
 
   return (
-    <View style={styles.container}>
-      <CharacterListHeader
-        searchValue={searchInputValue}
-        placeholder="Search the characters"
-        onChangeText={onChangeText}
-        onPressCleanSearchValue={onPressCleanSearchValue}
-      />
-
-      {isLoading ? (
-        <LoadingView />
-      ) : (
-        <FlatList
-          data={flattenCharactersResults}
-          ListFooterComponent={ListFooterComponent}
-          keyExtractor={keyExtractor}
-          renderItem={renderItem}
-          onEndReached={onEndReached}
-          onEndReachedThreshold={0.5}
-          contentContainerStyle={styles.contentContainer}
-        />
-      )}
-    </View>
+    <CharacterList
+      searchInputValue={searchInputValue}
+      flattenCharactersResults={flattenCharactersResults}
+      isLoading={isLoading}
+      ListFooterComponent={ListFooterComponent}
+      isCharacterInFavorites={isCharacterInFavorites}
+      onChangeText={onChangeText}
+      onPressCleanSearchValue={onPressCleanSearchValue}
+      onPressNavigateToCharacterDetails={onPressNavigateToCharacterDetails}
+      onEndReached={onEndReached}
+      onPressAddToFavorites={addCharacterToFavorites}
+      onPressRemoveFromFavorites={removeCharacterFormFavorites}
+    />
   );
 };
 

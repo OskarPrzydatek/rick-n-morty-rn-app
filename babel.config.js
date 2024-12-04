@@ -22,6 +22,7 @@ module.exports = {
           '@constants': './src/constants',
           '@hooks': './src/hooks',
           '@stacks': './src/stacks',
+          '@store': './src/store',
         },
       },
     ],

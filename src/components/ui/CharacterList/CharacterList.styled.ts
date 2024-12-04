@@ -9,5 +9,5 @@ export const styles = StyleSheet.create({
   contentContainer: {
     padding: 16,
     gap: 24,
-  }
+  },
 });

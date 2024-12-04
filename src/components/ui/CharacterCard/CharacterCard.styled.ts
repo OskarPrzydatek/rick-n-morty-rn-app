@@ -23,11 +23,22 @@ export const styles = StyleSheet.create({
   characterAttributes: {
     width: '35%',
   },
+  imageContainer: {
+    borderRadius: 24,
+    position: 'relative',
+    width: 200,
+    height: 200,
+  },
   image: {
     width: 200,
     height: 200,
+    borderRadius: 24,
     borderWidth: 1,
     borderColor: colors.darkGreen,
-    borderRadius: 24,
+  },
+  imageButton: {
+    position: 'absolute',
+    bottom: 8,
+    right: 8,
   },
 });

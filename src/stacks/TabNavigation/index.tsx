@@ -1,7 +1,7 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {TabNavigationStackRoutes} from './TabNavigation.routes';
-import {screenOptions} from './TabNavigation.utils';
+import {screenOptions} from './TabNavigation.config';
 import {CharacterListScreen, FavoriteCharactersScreen} from './screens';
 
 const Tab = createBottomTabNavigator();

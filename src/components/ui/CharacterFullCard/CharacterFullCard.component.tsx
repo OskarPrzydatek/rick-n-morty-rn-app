@@ -1,8 +1,11 @@
 import React from 'react';
 import {Gender, Status} from '@api/models';
 import {Image, Text, View} from 'react-native';
-import {CharacterAttribute} from '@components/ui';
+import {Button, CharacterAttribute} from '@components/ui';
 import {styles} from './CharacterFullCard.styled';
+import {colors} from '@constants/styles';
+import FullfiledStarIcon from '@assets/svg/favorites_tab_icon.svg';
+import StarIcon from '@assets/svg/star.svg';
 
 interface CharacterFullCardProps {
   image: string;
@@ -11,6 +14,8 @@ interface CharacterFullCardProps {
   originName: string;
   species: string;
   gender: Gender;
+  isCharacterInFavorites: boolean;
+  onPressFavoritesButton: () => void;
 }
 
 const CharacterFullCard = ({
@@ -20,7 +25,19 @@ const CharacterFullCard = ({
   originName,
   species,
   gender,
+  isCharacterInFavorites,
+  onPressFavoritesButton,
 }: CharacterFullCardProps) => {
+  const favoritesButtonLabel = isCharacterInFavorites
+    ? 'REMOVE FROM LIKED'
+    : 'ADD TO LIKED';
+
+  const RightIcon = isCharacterInFavorites ? (
+    <FullfiledStarIcon color={colors.accent} width={16} height={16} />
+  ) : (
+    <StarIcon color={colors.white} width={16} height={16} />
+  );
+
   return (
     <View style={styles.container}>
       <Image
@@ -66,6 +83,13 @@ const CharacterFullCard = ({
             />
           </View>
         </View>
+
+        <Button
+          label={favoritesButtonLabel}
+          variant="secondary"
+          RightIcon={RightIcon}
+          onPress={onPressFavoritesButton}
+        />
       </View>
     </View>
   );
