@@ -1,19 +1,20 @@
 import React, {ReactNode} from 'react';
-import {SafeAreaView, View} from 'react-native';
+import {Image, SafeAreaView, View} from 'react-native';
 import {styles} from './Layout.styled';
-import Logo from '@assets/svg/logo.svg';
 
 interface LayoutProps {
   children: ReactNode;
 }
 
 export const Layout = ({children}: LayoutProps) => {
+  const logoSource = require('@assets/images/logo.png');
+
   return (
     <SafeAreaView style={styles.container}>
       {children}
 
       <View style={styles.footer}>
-        <Logo width={301} height={92} />
+        <Image source={logoSource} style={styles.image} />
       </View>
     </SafeAreaView>
   );

@@ -1,4 +1,4 @@
-import { colors } from '@constants/styles';
+import {colors} from '@constants/styles';
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
@@ -7,9 +7,13 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.darkGreen,
   },
   footer: {
-    padding: 24,
+    padding: 8,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.darkGreen,
+  },
+  image: {
+    width: 301,
+    height: 92,
   },
 });

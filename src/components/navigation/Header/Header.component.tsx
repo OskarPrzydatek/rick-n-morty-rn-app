@@ -1,12 +1,13 @@
 import React from 'react';
-import {View} from 'react-native';
-import Logo from '@assets/svg/logo.svg';
+import {Image, View} from 'react-native';
 import {styles} from './Header.styled';
 
 const Header = () => {
+  const logoSource = require('@assets/images/logo.png');
+
   return (
     <View style={styles.container}>
-      <Logo width={104} height={32} />
+      <Image source={logoSource} style={styles.image} />
     </View>
   );
 };

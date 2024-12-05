@@ -4,7 +4,7 @@ import {StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    paddingVertical: 16,
+    paddingVertical: 12,
     backgroundColor: colors.darkGreen,
   },
   button: {
@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     gap: 8,
-    paddingBottom: 16,
+    paddingBottom: 12,
     borderBottomWidth: 1,
   },
   label: {
