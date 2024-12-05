@@ -4,7 +4,7 @@ import {Image, Text, View} from 'react-native';
 import {Button, CharacterAttribute} from '@components/ui';
 import {styles} from './CharacterFullCard.styled';
 import {colors} from '@constants/styles';
-import FullfiledStarIcon from '@assets/svg/favorites_tab_icon.svg';
+import FiledStarIcon from '@assets/svg/filled_star.svg';
 import StarIcon from '@assets/svg/star.svg';
 
 interface CharacterFullCardProps {
@@ -33,7 +33,7 @@ const CharacterFullCard = ({
     : 'ADD TO LIKED';
 
   const RightIcon = isCharacterInFavorites ? (
-    <FullfiledStarIcon color={colors.accent} width={16} height={16} />
+    <FiledStarIcon color={colors.accent} width={16} height={16} />
   ) : (
     <StarIcon color={colors.white} width={16} height={16} />
   );

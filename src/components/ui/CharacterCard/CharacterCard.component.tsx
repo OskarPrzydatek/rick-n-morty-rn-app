@@ -3,7 +3,7 @@ import {Status} from '@api/models';
 import {Image, View} from 'react-native';
 import {styles} from './CharacterCard.styled';
 import {Button, CharacterAttribute} from '@components/ui';
-import FullfiledStarIcon from '@assets/svg/favorites_tab_icon.svg';
+import FiledStarIcon from '@assets/svg/filled_star.svg';
 import StarIcon from '@assets/svg/star.svg';
 import {colors} from '@constants/styles';
 
@@ -28,7 +28,7 @@ const CharacterCard = ({
 }: CharacterCardProps) => {
   const buttonVariant = isCharacterInFavorites ? 'tetriary' : 'primary';
   const RightIcon = isCharacterInFavorites ? (
-    <FullfiledStarIcon color={colors.accent} width={16} height={16} />
+    <FiledStarIcon color={colors.accent} width={16} height={16} />
   ) : (
     <StarIcon color={colors.darkGreen} width={16} height={16} />
   );

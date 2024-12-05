@@ -1,8 +1,8 @@
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
 import React from 'react';
 import {Pressable, Text, View} from 'react-native';
-import CharactersTabIcon from '@assets/svg/characters_tab_icon.svg';
-import FavoritesTabIcon from '@assets/svg/favorites_tab_icon.svg';
+import CharactersIcon from '@assets/svg/characters.svg';
+import FilledStarIcon from '@assets/svg/filled_star.svg';
 import {colors} from '@constants/styles';
 import {TabNavigationStackRoutes} from '@stacks/TabNavigation/TabNavigation.routes';
 import {styles} from './TabBar.styled';
@@ -44,7 +44,7 @@ const TabBar = ({state, navigation}: BottomTabBarProps) => {
           },
         ]}
         onPress={onPressNavigateToCharactersList}>
-        <CharactersTabIcon color={handleActiveCharacterListScreenColor} />
+        <CharactersIcon color={handleActiveCharacterListScreenColor} />
 
         <Text
           style={[
@@ -65,7 +65,7 @@ const TabBar = ({state, navigation}: BottomTabBarProps) => {
           },
         ]}
         onPress={onPressNavigateToFavoriteCharacters}>
-        <FavoritesTabIcon color={handleActiveFavoriteCharactersScreenColor} />
+        <FilledStarIcon color={handleActiveFavoriteCharactersScreenColor} />
 
         <Text
           style={[
