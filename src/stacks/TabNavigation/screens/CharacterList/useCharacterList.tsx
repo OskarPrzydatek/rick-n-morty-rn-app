@@ -59,8 +59,6 @@ const useCharacterList = () => {
 
   const isParamsUrl =
     debouncedSearchValue.length > 0 || statusFilter || speciesFilter;
-  /* const isWithoutFilteringParamsPage =
-    debouncedSearchValue.length === 0 && !statusFilter && !speciesFilter; */
 
   const onChangeText = (text: string) => setSearchInputValue(text);
   const onPressCleanSearchValue = () => setSearchInputValue('');
