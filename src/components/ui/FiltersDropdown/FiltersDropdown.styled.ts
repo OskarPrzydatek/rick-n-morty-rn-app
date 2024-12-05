@@ -2,18 +2,6 @@ import {colors, fonts} from '@constants/styles';
 import {Platform, StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 16,
-    gap: 16,
-  },
-  header: {
-    fontSize: 36,
-    fontFamily: fonts.Inter.medium,
-  },
-  showFiltersButton: {
-    alignSelf: 'flex-start',
-  },
-
   filters: {
     position: 'relative',
   },

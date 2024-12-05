@@ -18,6 +18,8 @@ const SearchInput = ({
   onChangeText,
   onPressCleanSearchValue,
 }: SearchInputProps) => {
+  const isSearchValue = searchValue.length !== 0;
+
   return (
     <View style={styles.container}>
       <MagnifierIcon />
@@ -30,9 +32,11 @@ const SearchInput = ({
         onChangeText={onChangeText}
       />
 
-      <TouchableOpacity activeOpacity={0.5} onPress={onPressCleanSearchValue}>
-        <CrossIcon />
-      </TouchableOpacity>
+      {isSearchValue && (
+        <TouchableOpacity activeOpacity={0.5} onPress={onPressCleanSearchValue}>
+          <CrossIcon />
+        </TouchableOpacity>
+      )}
     </View>
   );
 };

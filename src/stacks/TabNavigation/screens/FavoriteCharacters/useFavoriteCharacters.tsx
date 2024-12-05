@@ -6,12 +6,16 @@ import {MainStackNavigationProp} from '@stacks/Main/Main.routes';
 import useFavoritesStore from '@store/favorites';
 import {useEffect, useState} from 'react';
 import {Character} from '@api/models';
+import useFilters from '@hooks/useFilters';
 
 const useFavoriteCharacters = () => {
   const {navigate} = useNavigation<MainStackNavigationProp>();
 
   const [searchInputValue, setSearchInputValue] = useState('');
   const debouncedSearchValue = useDebouncedValue(searchInputValue);
+
+  const {statusFilter, speciesFilter, applyFilters, resetFilters} =
+    useFilters();
 
   const {
     favoritesList,
@@ -26,11 +30,21 @@ const useFavoriteCharacters = () => {
   const favoritesListSearchFilter = useCallback(
     (character: Character) => {
       const lowerCaseCharacterName = character.name.toLocaleLowerCase();
+      const lowerCaseCharacterStatus = character.status.toLocaleLowerCase();
+      const lowerCaseCharacterSpecies = character.species.toLowerCase();
       const lowerCaseSearchValue = debouncedSearchValue.toLocaleLowerCase();
 
-      return lowerCaseCharacterName.includes(lowerCaseSearchValue);
+      const isNameContainsSearchValue =
+        lowerCaseCharacterName.includes(lowerCaseSearchValue);
+      const isStatusMatching = lowerCaseCharacterStatus === statusFilter;
+      const isSpeciesMachiong = lowerCaseCharacterSpecies === speciesFilter;
+
+      const isCharacterMaching =
+        isNameContainsSearchValue && isStatusMatching && isSpeciesMachiong;
+
+      return isCharacterMaching;
     },
-    [debouncedSearchValue],
+    [debouncedSearchValue, speciesFilter, statusFilter],
   );
 
   const onChangeText = (text: string) => setSearchInputValue(text);
@@ -51,7 +65,7 @@ const useFavoriteCharacters = () => {
   };
 
   useEffect(() => {
-    if (debouncedSearchValue.length > 0) {
+    if (debouncedSearchValue.length > 0 || statusFilter || speciesFilter) {
       const handleFiltredFavoritesList = favoritesList.filter(
         favoritesListSearchFilter,
       );
@@ -59,10 +73,16 @@ const useFavoriteCharacters = () => {
       setFiltredFavoritesList(handleFiltredFavoritesList);
     }
 
-    if (debouncedSearchValue.length === 0) {
+    if (debouncedSearchValue.length === 0 && !statusFilter && !speciesFilter) {
       setFiltredFavoritesList(favoritesList);
     }
-  }, [debouncedSearchValue.length, favoritesList, favoritesListSearchFilter]);
+  }, [
+    debouncedSearchValue.length,
+    favoritesList,
+    favoritesListSearchFilter,
+    speciesFilter,
+    statusFilter,
+  ]);
 
   return {
     searchInputValue,
@@ -74,6 +94,8 @@ const useFavoriteCharacters = () => {
     onPressCleanSearchValue,
     onPressNavigateToCharacterDetails,
     ListFooterComponent,
+    applyFilters,
+    resetFilters,
   };
 };
 

@@ -13,6 +13,8 @@ const FavoriteCharactersScreen = () => {
     onPressCleanSearchValue,
     onPressNavigateToCharacterDetails,
     ListFooterComponent,
+    applyFilters,
+    resetFilters,
   } = useFavoriteCharacters();
 
   return (
@@ -26,6 +28,8 @@ const FavoriteCharactersScreen = () => {
       onPressNavigateToCharacterDetails={onPressNavigateToCharacterDetails}
       onPressAddToFavorites={addCharacterToFavorites}
       onPressRemoveFromFavorites={removeCharacterFormFavorites}
+      applyFilters={applyFilters}
+      resetFilters={resetFilters}
     />
   );
 };

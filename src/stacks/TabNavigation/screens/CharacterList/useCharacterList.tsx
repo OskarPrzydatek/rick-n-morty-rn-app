@@ -10,6 +10,7 @@ import {ActivityIndicator} from 'react-native';
 import {colors} from '@constants/styles';
 import useDebouncedValue from '@hooks/useDebounceValue';
 import useFavoritesStore from '@store/favorites';
+import useFilters from '@hooks/useFilters';
 
 const useCharacterList = () => {
   const {navigate} = useNavigation<MainStackNavigationProp>();
@@ -17,8 +18,20 @@ const useCharacterList = () => {
   const [searchInputValue, setSearchInputValue] = useState('');
   const debouncedSearchValue = useDebouncedValue(searchInputValue);
 
+  const {statusFilter, speciesFilter, applyFilters, resetFilters} =
+    useFilters();
+
+  const searchParams = new URLSearchParams({
+    name: debouncedSearchValue,
+    status: statusFilter,
+    species: speciesFilter,
+  });
+
   const initialPageUrl = `${BASE_URL}/${Endpoinst.ALL_CHARACTERS}`;
-  const searchWithFiltersPageUrl = `${BASE_URL}/${Endpoinst.ALL_CHARACTERS}/?name=${debouncedSearchValue}`;
+
+  const searchWithFiltersPageUrl = `${BASE_URL}/${
+    Endpoinst.ALL_CHARACTERS
+  }/?${searchParams.toString()}`;
 
   const [pageUrl, setPageUrl] = useState(initialPageUrl);
 
@@ -43,6 +56,11 @@ const useCharacterList = () => {
   } = useFavoritesStore();
 
   const flattenCharactersResults = data?.pages.flatMap(page => page.results);
+
+  const isParamsUrl =
+    debouncedSearchValue.length > 0 || statusFilter || speciesFilter;
+  /* const isWithoutFilteringParamsPage =
+    debouncedSearchValue.length === 0 && !statusFilter && !speciesFilter; */
 
   const onChangeText = (text: string) => setSearchInputValue(text);
   const onPressCleanSearchValue = () => setSearchInputValue('');
@@ -72,14 +90,12 @@ const useCharacterList = () => {
   };
 
   useEffect(() => {
-    if (debouncedSearchValue.length > 0) {
+    if (isParamsUrl) {
       setPageUrl(searchWithFiltersPageUrl);
-    }
-
-    if (debouncedSearchValue.length === 0) {
+    } else {
       setPageUrl(initialPageUrl);
     }
-  }, [debouncedSearchValue, initialPageUrl, searchWithFiltersPageUrl]);
+  }, [initialPageUrl, isParamsUrl, searchWithFiltersPageUrl]);
 
   return {
     flattenCharactersResults,
@@ -93,6 +109,8 @@ const useCharacterList = () => {
     isCharacterInFavorites,
     addCharacterToFavorites,
     removeCharacterFormFavorites,
+    applyFilters,
+    resetFilters,
   };
 };
 

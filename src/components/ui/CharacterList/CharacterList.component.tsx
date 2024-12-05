@@ -10,6 +10,8 @@ interface CharacterListProps {
   isLoading?: boolean;
   ListFooterComponent: () => React.JSX.Element | null;
   isCharacterInFavorites: (id: number) => boolean;
+  applyFilters: (statusValue: string, speciesValue: string) => void;
+  resetFilters: () => void;
   onChangeText: (text: string) => void;
   onPressCleanSearchValue: () => void;
   onPressNavigateToCharacterDetails: (url: string) => void;
@@ -24,6 +26,8 @@ const CharacterList = ({
   isLoading = false,
   ListFooterComponent,
   isCharacterInFavorites,
+  applyFilters,
+  resetFilters,
   onChangeText,
   onPressCleanSearchValue,
   onPressNavigateToCharacterDetails,
@@ -66,6 +70,8 @@ const CharacterList = ({
       <CharacterListHeader
         searchValue={searchInputValue}
         placeholder="Search the characters"
+        applyFilters={applyFilters}
+        resetFilters={resetFilters}
         onChangeText={onChangeText}
         onPressCleanSearchValue={onPressCleanSearchValue}
       />

@@ -1,10 +1,10 @@
 import React from 'react';
 import {Pressable, StyleProp, Text, ViewStyle} from 'react-native';
-import {labelStyles, styles} from './Button.styled';
+import {styles} from './Button.styled';
 
 interface ButtonProps {
   label: string;
-  variant: 'primary' | 'secondary' | 'tetriary';
+  variant: 'primary' | 'secondary' | 'tetriary' | 'quaternary';
   style?: StyleProp<ViewStyle>;
   RightIcon?: React.JSX.Element;
   LeftIcon?: React.JSX.Element;
@@ -19,13 +19,18 @@ const Button = ({
   LeftIcon,
   onPress,
 }: ButtonProps) => {
+  const labelColor =
+    variant === 'secondary' || variant === 'quaternary'
+      ? styles.lightLabel
+      : styles.darkLabel;
+
   return (
     <Pressable
       style={[styles.container, styles[variant], style]}
       onPress={onPress}>
       {!!RightIcon && RightIcon}
 
-      <Text style={[labelStyles.label, labelStyles[variant]]}>{label}</Text>
+      <Text style={[styles.label, labelColor]}>{label}</Text>
 
       {!!LeftIcon && LeftIcon}
     </Pressable>

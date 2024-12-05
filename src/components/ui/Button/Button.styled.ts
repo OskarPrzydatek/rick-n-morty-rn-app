@@ -17,27 +17,25 @@ export const styles = StyleSheet.create({
     borderColor: colors.darkGreen,
   },
   secondary: {
-    backgroundColor: colors.darkGreen,
-    borderColor: colors.darkGreen,
+    backgroundColor: colors.primaryGreen,
+    borderColor: colors.primaryGreen,
   },
   tetriary: {
     backgroundColor: colors.greyshGreen,
     borderColor: colors.darkGreen,
   },
-});
-
-export const labelStyles = StyleSheet.create({
+  quaternary: {
+    backgroundColor: colors.darkGreen,
+    borderColor: colors.darkGreen,
+  },
   label: {
     fontFamily: fonts.DMMono.regular,
     fontSize: 14,
   },
-  primary: {
-    color: colors.primaryGreen,
-  },
-  secondary: {
+  lightLabel: {
     color: colors.white,
   },
-  tetriary: {
+  darkLabel: {
     color: colors.primaryGreen,
   },
 });

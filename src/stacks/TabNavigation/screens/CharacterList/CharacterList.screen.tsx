@@ -15,6 +15,8 @@ const CharacterListScreen = () => {
     isCharacterInFavorites,
     addCharacterToFavorites,
     removeCharacterFormFavorites,
+    applyFilters,
+    resetFilters,
   } = useCharacterList();
 
   return (
@@ -30,6 +32,8 @@ const CharacterListScreen = () => {
       onEndReached={onEndReached}
       onPressAddToFavorites={addCharacterToFavorites}
       onPressRemoveFromFavorites={removeCharacterFormFavorites}
+      applyFilters={applyFilters}
+      resetFilters={resetFilters}
     />
   );
 };
