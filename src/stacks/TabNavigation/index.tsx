@@ -1,14 +1,14 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {TabNavigationStackRoutes} from './TabNavigation.routes';
-import {screenOptions} from './TabNavigation.config';
+import {renderTabBar} from './TabNavigation.config';
 import {CharacterListScreen, FavoriteCharactersScreen} from './screens';
 
 const Tab = createBottomTabNavigator();
 
 export const TabNavigationStack = () => {
   return (
-    <Tab.Navigator screenOptions={screenOptions}>
+    <Tab.Navigator tabBar={renderTabBar}>
       <Tab.Screen
         name={TabNavigationStackRoutes.CharacterListScreen}
         component={CharacterListScreen}
